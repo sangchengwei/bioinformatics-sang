@@ -19,6 +19,7 @@ bash -c "..."：这是bash命令的一种用法，它允许在命令行上执行
  -fsSL:
 -f (--fail) 表示在服务器错误时，阻止一个返回的表示错误原因的 html 页面；-s，--silent：安静模式。不显示进度表或错误信息，使curl静音，它仍然会输出您请求的数据，甚至可能输出到终端stdout，除非您对它进行重定向；--show-error：当与-s，--silent一起使用时，它会使curl在失败时显示错误消息；-L,--location:如果服务器报告请求的页面已移动到其他位置（用location:header和3xx 响应代码），此选项将使curl在新位置上重新执行请求。
 ```
+桑程巍
 
 ## https://raw.githubusercontent.com/wang-q/ubuntu/master/prepare/1-apt中内容：
 ```shell script
