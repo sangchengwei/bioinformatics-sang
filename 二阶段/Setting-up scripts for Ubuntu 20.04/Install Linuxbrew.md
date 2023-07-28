@@ -9,6 +9,9 @@ export HOMEBREW_BREW_GIT_REMOTE="https://mirrors.tuna.tsinghua.edu.cn/git/homebr
 export HOMEBREW_CORE_GIT_REMOTE="https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-core.git"
 export HOMEBREW_BOTTLE_DOMAIN="https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles"
 
+这行命令是用于设置环境变量 HOMEBREW_BREW_GIT_REMOTE 的值。在这个命令中，环境变量的值被设置为 https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git
+这个环境变量在后续的操作中可能会被使用，具体使用方式取决于相关的应用程序或脚本。
+
 
 git clone --depth=1 https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/install.git brew-install
 /bin/bash brew-install/install.sh
@@ -35,3 +38,18 @@ brew-install: 这是要删除的目录的名称。在前面的命令中，我们
 
 #安装成功后需将 brew 程序的相关路径加入到环境变量中：
 #以下针对 Linux 系统上的 Linuxbrew：
+
+test -d ~/.linuxbrew && PATH="$HOME/.linuxbrew/bin:$HOME/.linuxbrew/sbin:$PATH"
+test -d /home/linuxbrew/.linuxbrew && PATH="/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:$PATH"
+
+test -d ~/.linuxbrew && PATH="$HOME/.linuxbrew/bin:$HOME/.linuxbrew/sbin:$PATH"：
+
+test -d ~/.linuxbrew: 这是一个条件测试语句，用于检查当前用户的主目录（~）下是否存在 .linuxbrew 目录。条件测试中的 -d 表示检查是否是一个目录。
+&&: 这是逻辑 AND 运算符，它表示在前一个条件测试成功（即目录存在）时，执行后面的命令。
+PATH="$HOME/.linuxbrew/bin:$HOME/.linuxbrew/sbin:$PATH"：这个命令用于将 Linuxbrew 安装路径添加到环境变量 PATH 中。$HOME/.linuxbrew/bin 和 $HOME/.linuxbrew/sbin 是 Linuxbrew 的二进制文件和脚本所在的路径，$PATH 是原来的 PATH 环境变量。这个命令的作用是将 Linuxbrew 的路径放在原来 PATH 的前面，以便让系统优先使用 Linuxbrew 安装的软件。
+test -d /home/linuxbrew/.linuxbrew && PATH="/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:$PATH"：
+
+test -d /home/linuxbrew/.linuxbrew：这是一个条件测试语句，用于检查 /home/linuxbrew/ 目录下是否存在 .linuxbrew 目录。
+&&：逻辑 AND 运算符，表示在前一个条件测试成功（即目录存在）时，执行后面的命令。
+PATH="/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:$PATH"：这个命令与第一行类似，用于将 /home/linuxbrew/ 目录下的 Linuxbrew 安装路径添加到环境变量 PATH 中。
+这两行命令都用于检查 Linuxbrew 是否已经安装，并将 Linuxbrew 的路径添加到 PATH 环境变量中。根据实际安装的位置，其中一个命令会生效，而另一个则会被跳过。这样可以确保在安装了 Linuxbrew 的情况下，系统能够正确地找到并使用 Linuxbrew 安装的软件。
