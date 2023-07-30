@@ -37,7 +37,7 @@ alias unvpn='unset all_proxy'
 
 
 echo "====> Download Genomics related tools <===="
-
+   下载基因组学相关工具
 mkdir -p $HOME/bin
 mkdir -p $HOME/.local/bin
 mkdir -p $HOME/share
@@ -121,4 +121,5 @@ fi \
     > faToTwoBit
 mv faToTwoBit $HOME/bin/
 chmod +x $HOME/bin/faToTwoBit
+
 ```
