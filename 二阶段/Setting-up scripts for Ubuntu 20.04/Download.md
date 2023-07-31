@@ -42,44 +42,87 @@ mkdir -p $HOME/bin
 mkdir -p $HOME/.local/bin
 mkdir -p $HOME/share
 mkdir -p $HOME/Scripts
+#在HOME目录下创建新的4个文件夹，且不可重名
 
 # make sure $HOME/bin in your $PATH
 if grep -q -i homebin $HOME/.bashrc; then
-    echo "==> .bashrc already contains homebin"
+     echo "==> .bashrc already contains homebin"
 else
     echo "==> Update .bashrc"
+    忽略大小写，检查用户的 .bashrc 文件中是否已经包含了 "homebin" 字符串，以便避免重复添加配置或在特定条件下执行不同的操作。
 
     HOME_PATH='export PATH="$HOME/bin:$HOME/.local/bin:$PATH"'
     echo '# Homebin' >> $HOME/.bashrc
     echo $HOME_PATH >> $HOME/.bashrc
     echo >> $HOME/.bashrc
+在用户的 .bashrc 配置文件中添加一些配置，将 $HOME/bin 和 $HOME/.local/bin 目录添加到 $PATH 环境变量中，从而让用户的终端会话中可以直接运行这两个目录中的可执行文件。这通常用于方便用户在终端中运行自定义的脚本或程序。
 
-    eval $HOME_PATH
+    eval $HOME_PATH     
+    将 $HOME/bin 和 $HOME/.local/bin 目录添加到了 $PATH 环境变量中，使得用户可以在终端中直接运行这两个目录中的可执行文件，而无需输入完整的路径。
 fi
+#若$HOME/.bashrc 文件夹含有Homebin，则显示“已经存在”；如果不包含，则升级homebin，将homebin和$HOME_PATH写入$HOME/.bashrc
 
-# Clone or pull other repos
+# Clone or pull other repos   #复制或者调用其他回购协议
 for OP in dotfiles; do
+#OP是withncbi和dotfiles中的一个，一个个筛选
+
     if [[ ! -d "$HOME/Scripts/$OP/.git" ]]; then
+    #如果"$HOME/Scripts/$OP/.git"不是目录，即没有这个目录，则
+
         if [[ ! -d "$HOME/Scripts/$OP" ]]; then
+        #如果"$HOME/Scripts/$OP"不是目录，即没有这个目录，则直接克隆OP这个仓库为这个目录
+
             echo "==> Clone $OP"
             git clone https://github.com/wang-q/${OP}.git "$HOME/Scripts/$OP"
+             #将网页中内容直接拷贝到文件中
         else
             echo "==> $OP exists"
+            #若"$HOME/Scripts/$OP"为目录，则显示已经存在
         fi
     else
-        echo "==> Pull $OP"
+    #如果"$HOME/Scripts/$OP/.git"是目录，已经存在该目录，则
+        echo "==> Pull $OP"   调用dotfiles  withncbi"
         pushd "$HOME/Scripts/$OP" > /dev/null
+        #使用 pushd 和 popd 命令来执行存储目录路径并删除它的操作
+        #pushd+文件目录， 向目录栈中添加相应的文件目录，同时当前工作目录调整到相应的目录下，将命令的输出信息输入到 /dev/null中并且不显示信息
         git pull
+        #git pull的作用是从一个仓库或者本地的分支拉取并且整合代码。
         popd > /dev/null
+        #popd 命令不仅会将当前目录切换到 上一个父目录，它还会从目录堆栈中删除这个子目录，即OP目录
     fi
 done
 
+#目的：如果含有withncbi或者dotfiles，则进入循环，
+#如果没有$HOME/Scripts/dotfiles/.git目录也没有$HOME/Scripts/dotfiles目录，就把https://github.com/wang-q/dotfiles.git内容克隆到$HOME/Scripts/dotfiles文件夹中，
+#如果已经有了$HOME/Scripts/dotfiles/.git目录，就把$HOME/Scripts/dotfiles内容转移到dev/dull，即把$HOME/Scripts/dotfiles内容全部丢弃，
+#回到原来$HOME/Scripts/dotfiles上一级父目录$HOME/Scripts
+#直到dotfiles、ncbi都筛查完，退出循环
+
+补充：
+!: 在条件语句中的感叹号表示逻辑 NOT，即取反。在这里，! -d 表示目录不存在的条件。
+
+"$HOME/Scripts/$OP/.git": 这是要检查的目录路径，其中 $HOME 是表示用户主目录的环境变量，$OP 是一个变量，可能是脚本中定义的其他值。
+
+if ... ; then: 这是条件语句的开头，表示如果条件成立则执行后面的代码块。
+
+-d "$HOME/Scripts/$OP/.git": 这是条件测试，判断给定的目录是否存在。-d 表示测试目录是否存在。
+
+如果指定的目录 "$HOME/Scripts/$OP/.git" 不存在，则条件为真（true），则执行 if 后面的代码块，否则不执行。
+
+在这个脚本中，可能是用于检查特定的目录是否已经初始化为 Git 仓库。如果目录不存在或者没有 .git 子目录，可能会进行相关的 Git 初始化操作或其他逻辑处理。
+
 # alignDB
 # chmod +x $HOME/Scripts/alignDB/alignDB.pl
+给该文件$HOME/Scripts/alignDB/alignDB.pl的执行权限
+
 # ln -fs $HOME/Scripts/alignDB/alignDB.pl $HOME/bin/alignDB.pl
+b 指向a, 即$HOME/bin/alignDB.pl指向$HOME/Scripts/alignDB/alignDB.pl,即两个目录下存放着相同的文件，不是复制是统一个文件的两个路径
 
 echo "==> Jim Kent bin"
 cd $HOME/bin/
+#在$HOME/bin/目录使用
+
+
 RELEASE=$( ( lsb_release -ds || cat /etc/*release || uname -om ) 2>/dev/null | head -n1 )
 if [[ $(uname) == 'Darwin' ]]; then
     curl -L https://github.com/wang-q/ubuntu/releases/download/20190906/jkbin-egaz-darwin-2011.tar.gz
