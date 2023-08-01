@@ -121,19 +121,37 @@ b 指向a, 即$HOME/bin/alignDB.pl指向$HOME/Scripts/alignDB/alignDB.pl,即两�
 echo "==> Jim Kent bin"
 cd $HOME/bin/
 #在$HOME/bin/目录使用
+输出一条提示信息 "==> Jim Kent bin"，然后将当前工作目录切换到用户主目录下的 bin 目录。可能是为了进行一些与 Jim Kent bin 相关的操作或者执行相关的脚本。
 
 
 RELEASE=$( ( lsb_release -ds || cat /etc/*release || uname -om ) 2>/dev/null | head -n1 )
+#linux中"\"在是一个转义字符，“｜”是一个特殊字符，有“或”的功能 ||上一个命令执行失败后再执行下一个命令
+#/etc/*release是系统安装时默认的发行版本信息，通常安装好系统后文件内容不会发生变化。
+#用来显示LSB当前版本的描述信息 或 系统安装时默认的发行版本信息 或 打印操作系统和机器硬件CPU名
+
 if [[ $(uname) == 'Darwin' ]]; then
+#Darwin是由苹果电脑于2000年所释出的一个开放原始码操作系统。Darwin 是MacOSX操作环境的操作系统成份。
+#苹果电脑于2000年把Darwin 释出给开放原始码社群。
+#现在的Darwin皆可以在苹果电脑的PowerPC 架构和X86  架构下执行，而后者的架构只有有限的驱动程序支援。
+
     curl -L https://github.com/wang-q/ubuntu/releases/download/20190906/jkbin-egaz-darwin-2011.tar.gz
+ #curl-L 跟随网站的跳转 直接下载这个安装包（curl: 这是 curl 命令的名称，用于发起 HTTP 请求。-L: 这是 curl 命令的选项之一，用于跟随重定向。）
+
 else
     if echo ${RELEASE} | grep CentOS > /dev/null ; then
+  #将命令的输出信息输入到 /dev/null中并且不显示信息
+  #CentOS是免费的、开源的、可以重新分发的开源操作系统 ，CentOS(Community Enterprise Operating System，
+    #中文意思是社区企业操作系统，是Linux发行版之一。CentOS Linux发行版是一个稳定的，可预测的，可管理的和可复现的平台
+
         curl -L https://github.com/wang-q/ubuntu/releases/download/20190906/jkbin-egaz-centos-7-2011.tar.gz
     else
         curl -L https://github.com/wang-q/ubuntu/releases/download/20190906/jkbin-egaz-ubuntu-1404-2011.tar.gz
     fi
 fi \
     > jkbin.tar.gz
+#如果uname == 'Darwin'，即系统是苹果系统则下载darwin-2011.tar.gz；如果不，则下载其他系统版本。
+#不同系统下载不同版本的Jim Kent bin
+
 
 echo "==> untar from jkbin.tar.gz"
 tar xvfz jkbin.tar.gz x86_64/axtChain
@@ -152,17 +170,24 @@ tar xvfz jkbin.tar.gz x86_64/netFilter
 tar xvfz jkbin.tar.gz x86_64/netSplit
 tar xvfz jkbin.tar.gz x86_64/netSyntenic
 tar xvfz jkbin.tar.gz x86_64/netToAxt
+#使用 tar 命令来解压缩 jkbin.tar.gz 文件并提取其中的特定文件（x 表示提取（解压缩），v 表示在终端显示详细信息，f 表示指定输入文件为 jkbin.tar.gz，z 表示使用gzip进行解压缩。后面的参数是要提取的文件或文件夹的相对路径。）
 
 mv $HOME/bin/x86_64/* $HOME/bin/
+#将目录/$HOME/bin/x86_64中的所有文件移到当前目录($HOME/bin/)中
 rm jkbin.tar.gz
+#删除压缩包
+#上面两块：先下载jkbin再解压，再删除压缩包
 
 if [[ $(uname) == 'Darwin' ]]; then
     curl -L http://hgdownload.soe.ucsc.edu/admin/exe/macOSX.x86_64/faToTwoBit
 else
     curl -L http://hgdownload.soe.ucsc.edu/admin/exe/linux.x86_64/faToTwoBit
 fi \
+#下载Linux版本的faToTwoBit
     > faToTwoBit
+    #将下载的文件的输出重定向到名为 faToTwoBit 的文件。
 mv faToTwoBit $HOME/bin/
+#将名为 faToTwoBit 的文件移动到 $HOME/bin/ 目录中。
 chmod +x $HOME/bin/faToTwoBit
-
+#给 $HOME/bin/faToTwoBit文件夹的执行权限
 ```
