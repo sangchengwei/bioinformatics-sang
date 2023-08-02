@@ -131,6 +131,9 @@ brew install lua node
 
 # taps
 brew tap wang-q/tap
+# 出了一些问题，需要连接到代理7890 问题已解决
+
+
 
 # downloading tools
 brew install aria2 curl wget
@@ -143,6 +146,7 @@ brew install screen stow htop parallel pigz
 brew install tree pv
 brew install jq jid pup
 brew install datamash miller tsv-utils
+# 问题，第三个 tsv-utils 无法安装，需要安装gcc,运行：sudo apt install gcc
 brew install librsvg udunits
 brew install proxychains-ng
 
