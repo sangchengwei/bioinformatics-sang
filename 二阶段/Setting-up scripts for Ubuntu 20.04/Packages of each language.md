@@ -115,7 +115,7 @@ cpanm -nq https://github.com/wang-q/App-Egaz.git
 
 
 
-# python
+# python  
 
 ## bash $HOME/Scripts/dotfiles/python/install.sh内容：
 ```
@@ -129,7 +129,8 @@ cd "${BASE_DIR}" || exit
 
 
 
-# pip
+
+# pip  
 PYPI_MIRROR=https://pypi.tuna.tsinghua.edu.cn/simple
 
 #pip3 install -i ${PYPI_MIRROR} --upgrade pip setuptools
@@ -153,8 +154,31 @@ pip3 install -i ${PYPI_MIRROR} Circle-Map cutadapt importlib-metadata
 # curl -sSL https://install.python-poetry.org | python3 -
 ```
 
+# 出现问题
+```
+ 1. Building wheel for deeptoolsintervals (setup.py) ... error
+  error: subprocess-exited-with-error
 
+  × python setup.py bdist_wheel did not run successfully.
+  │ exit code: 1
+  ╰─> [131 lines of output]
+      /home/linuxbrew/.linuxbrew/opt/python@3.9/lib/python3.9/site-packages/setuptools/_distutils/dist.py:265: UserWarning: Unknown distribution option: 'classifier'
+        warnings.warn(msg)
+ 尝试解决方案：
+    1.更新包：尝试更新相关的包和工具，有时旧版本的包可能会导致构建问题。你可以使用 pip 命令更新 pybedtools 和其依赖：
+ pip install --upgrade pybedtools
+    2.
+2. collect2: error: ld returned 1 exit status
+      error: command '/usr/bin/gcc-11' failed with exit code 1
+      [end of output]
 
+  note: This error originates from a subprocess, and is likely not a problem with pip.
+  ERROR: Failed building wheel for deeptoolsintervals
+  Running setup.py clean for deeptoolsintervals
+Failed to build deeptoolsintervals
+ERROR: Could not build wheels for deeptoolsintervals, which is required to install pyproject.toml-based projects
+
+```
 
 
 
