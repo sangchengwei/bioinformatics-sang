@@ -156,6 +156,8 @@ pip3 install -i ${PYPI_MIRROR} Circle-Map cutadapt importlib-metadata
 
 # 出现问题
 ```
+问题需要再处理
+
  1. Building wheel for deeptoolsintervals (setup.py) ... error
   error: subprocess-exited-with-error
 
