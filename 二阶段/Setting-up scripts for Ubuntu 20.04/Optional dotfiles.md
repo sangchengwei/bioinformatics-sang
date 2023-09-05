@@ -69,6 +69,7 @@ cd "${BASE_DIR}" || exit
 #将目录挂载到$HOME/Scripts/dotfiles/下，后退出
 
 
+
 # stow configurations
 mkdir -p ~/.config
 #创建~/.config目录
